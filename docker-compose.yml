@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  front:
+    build: ./front
+    ports:
+      - 5000:80
+    volumes:
+      - ./front:/app
+
+  api:
+    build: ./api
+    ports:
+      - 8080:8080
+    volumes:
+      - ./api:/app
+    depends_on:
+      - server-database
+    environment:
+      - MONGO_URI=mongodb://server-database:27017/wisestamp
+      - MIGRATE_MONGO_URI=mongodb://server-database:27017/wisestamp
+
+  server-database:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ./db:/data/db

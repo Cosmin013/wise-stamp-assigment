@@ -1,5 +1,4 @@
 import {Schema, model} from "mongoose";
-import templates from "../routes/templates";
 
 export type TTemplate = {
     body: string
